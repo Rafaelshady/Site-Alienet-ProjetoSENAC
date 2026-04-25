@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (usuarioLogado && usuario) {
         // Pega a foto do usuário diretamente do objeto
-        const fotoPerfil = usuario.foto ? usuario.foto : "imagens/perfil.png";
+        const fotoPerfil = usuario.foto
+            ? usuario.foto
+            : "./imagens/perfil.png";
 
         loginDiv.innerHTML = `
             <div class="usuario-dropdown" id="usuarioDropdown">
