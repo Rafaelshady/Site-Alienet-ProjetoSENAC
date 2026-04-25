@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlieNet - Combos</title>
+    <link rel="stylesheet" href="combos.css">
+</head>
+
+<body>
+
+    <header>
+
+        <!-- Botão de voltar para a home -->
+        <a href="index.html" class="voltar-home">
+            <img src="imagens/logo-alienet.png" alt="Voltar para a página inicial" />
+        </a>
+
+        <!-- Barra de navegação -->
+        <nav>
+            <a href="combos.html">Combos</a>
+            <a href="internet-movel-residencial.html">Móvel e Residencial</a>
+            <a href="celulares.html">Loja Online</a>
+            <a href="tv-e-streaming.html">Tv e Streaming</a>
+            <a href="para-empresas.html">Para Empresas</a>
+        </nav>
+
+        <!-- Login / Cadastro / Área Restrita -->
+        <div class="login" id="loginNav">
+            <a href="login.html">Login</a>
+            <a href="cadastro.html">Cadastro</a>
+        </div>
+
+    </header>
+
+    <section>
+        <div class="titulo1">
+            Com os combos AlienNet, tenha internet residencial e móvel ultra-rápida em um só pacote, para você estar
+            sempre conectado em casa e onde estiver!
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <!-- Plano 500 Mega -->
+            <div class="plano-wrapper">
+                <div class="promocao">Mês do Consumidor</div>
+                <div class="plano">
+                    <h2>500 Mega</h2>
+                    <p>Com a Alienet, você navega em outra dimensão: 500 Mega de internet, 10GB de bônus do consumidor e
+                        Netflix incluso no pacote!</p>
+                    <div class="servicos-inclusos">
+                        <img src="imagens/logo-netflix.png" alt="Netflix" title="Netflix">
+                    </div>
+                    <p class="preco">R$ 149,90/mês</p>
+                    <a href="pagamento.html" class="botao">Assinar Agora</a>
+                </div>
+            </div>
+
+            <!-- Plano 700 Mega + 200 Gb -->
+            <div class="plano-wrapper">
+                <div class="promocao">Mês do Consumidor</div>
+                <div class="plano">
+                    <h2>800 Mega</h2>
+                    <p>Alienet 800 Mega: ultravelocidade em casa, 20GB de bônus do consumidor e
+                        acesso incluso ao HBO Max e Netflix. Conecte-se sem limites!</p>
+                    <div class="servicos-inclusos">
+                        <img src="imagens/logo-netflix.png" alt="Netflix" title="Netflix">
+                        <img src="imagens/hbo-max-logo.jpg" alt="HBO Max" title="HBO Max">
+                    </div>
+                    <p class="preco">R$ 299,90/mês</p>
+                    <a href="pagamento.html" class="botao">Assinar Agora</a>
+                </div>
+            </div>
+
+            <!-- Plano 750 Mega -->
+            <div class="plano-wrapper">
+                <div class="promocao">750 Mega Turbo</div>
+                <div class="plano">
+                    <h2>750 Mega</h2>
+                    <p>Com a Alienet, você voa na velocidade da luz: 750 Mega de internet e HBO Max incluso para
+                        maratonar suas séries favoritas!</p>
+                    <div class="servicos-inclusos">
+                        <img src="imagens/hbo-max-logo.jpg" alt="HBO Max" title="HBO Max">
+                    </div>
+                    <p class="preco">R$ 200,90/mês</p>
+                    <a href="pagamento.html" class="botao">Assinar Agora</a>
+                </div>
+            </div>
+
+            <!-- Plano 1000 Mega -->
+            <div class="plano-wrapper">
+                <div class="promocao">Alienet Ultra 1000</div>
+                <div class="plano">
+                    <h2>1000 Mega</h2>
+                    <p>Alienet 1000 Mega: 1 Giga de pura velocidade, 300GB de plano móvel e os melhores apps inclusos —
+                        Netflix, Apple TV+, Crunchyroll e HBO Max.</p>
+                    <div class="servicos-inclusos">
+                        <img src="imagens/logo-netflix.png" alt="Netflix" title="Netflix">
+                        <img src="imagens/apple-tv-logo.jpg" alt="Apple TV+" title="Apple TV+">
+                        <img src="imagens/crunchyroll-logo.png" alt="Crunchyroll" title="Crunchyroll">
+                        <img src="imagens/hbo-max-logo.jpg" alt="HBO Max" title="HBO Max">
+                    </div>
+                    <p class="preco">R$ 349,90/mês</p>
+                    <a href="pagamento.html" class="botao">Assinar Agora</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+        <a href="https://web.whatsapp.com/" class="botao-suporte" target="_blank">
+            <img src="imagens/logo-whatsapp.png" alt="logo-alienet">
+        </a>
+    </section>
+
+    <!-- Rodapé -->
+    <section>
+        <footer>
+            <p>&copy; 2025 AlienNet - Conectando você ao futuro!</p>
+
+            <div class="redes-sociais">
+                <a href="https://www.facebook.com/login/?locale=pt_BR" target="_blank">
+                    <img src="imagens/facebook-logo.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/accounts/login/" target="_blank">
+                    <img src="imagens/logo-instagram.png" alt="Instagram">
+                </a>
+                <a href="https://www.linkedin.com/home" target="_blank">
+                    <img src="imagens/logo-linkedin.png" alt="LinkedIn">
+                </a>
+            </div>
+
+        </footer>
+    </section>
+
+<script>
+    // Ajuste aqui: sempre envia para Pagamento.html, sem redirecionar para login
+    const botoesAssinar = document.querySelectorAll('.botao');
+    botoesAssinar.forEach(botao => {
+        botao.addEventListener('click', function(e){
+            e.preventDefault(); // evita o link padrão
+            const plano = this.closest('.plano-wrapper').querySelector('h2').textContent; // pega o nome do plano
+            window.location.href = `pagamento.html?plano=${encodeURIComponent(plano)}`;
+        });
+    });
+</script>
+
+<script src="usuario.js"></script>
+</body>
+</html>

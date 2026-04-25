@@ -1,0 +1,450 @@
+/* ===============================
+   RESET E TIPOGRAFIA BASE
+=================================*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===============================
+   CORPO DA PÁGINA
+=================================*/
+body {
+    background: linear-gradient(135deg, #000010, #0a0f2d, #001f3f);
+    background-blend-mode: overlay;
+    color: #fff;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 100px;
+}
+
+/* Fundo animado de estrelas */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    z-index: -1;
+    animation: stars 100s linear infinite;
+}
+
+@keyframes stars {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 10000px 5000px;
+    }
+}
+
+/* ===============================
+   LOGO E VOLTAR
+=================================*/
+.voltar-home img {
+    width: 150px;
+    transition: transform 0.3s;
+}
+
+.voltar-home img:hover {
+    transform: scale(1.1);
+}
+
+/* ===============================
+   BOAS-VINDAS
+=================================*/
+.boas-vindas {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.boas-vindas h1 {
+    font-size: 2rem;
+    color: #7ec8ff;
+    margin-bottom: 10px;
+}
+
+.boas-vindas p {
+    color: #cbd5e0;
+}
+
+/* ===============================
+   PERFIL DO USUÁRIO
+=================================*/
+.perfil-usuario {
+    margin-bottom: 50px;
+}
+
+.perfil-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+
+/* Foto perfil */
+.foto-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.foto-perfil img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid #7ec8ff;
+}
+
+.foto-perfil button {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: #5790c5;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.foto-perfil button:hover {
+    background-color: #7ec8ff;
+    color: #001f3f;
+    transform: scale(1.05);
+}
+
+/* Info usuário */
+.info-usuario {
+    flex: 2;
+    min-width: 280px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* duas colunas */
+    gap: 15px;
+}
+
+.info-usuario p {
+    background: #1e2a38;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: #cbd5e0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.info-usuario p:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.info-usuario strong {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #7ec8ff;
+    margin-bottom: 5px;
+}
+.info-usuario button {
+    grid-column: span 2;
+    /* botão ocupa as duas colunas */
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #5790c5;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.info-usuario button:hover {
+    background-color: #7ec8ff;
+    color: #001f3f;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #7ec8ff;
+}
+
+/* Form edição */
+.form-editar {
+    display: none;
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+.form-editar input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #444;
+    background-color: #2d3748;
+    color: #fff;
+}
+
+.form-editar button {
+    background-color: #22c55e;
+}
+
+.form-editar button:hover {
+    background-color: #16a34a;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Botão salvar info */
+#btnSalvarInfo {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #5790c5;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#btnSalvarInfo:hover {
+    background-color: #7ec8ff;
+    color: #001f3f;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #7ec8ff;
+}
+
+/* ===============================
+   CARDS
+=================================*/
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background-color: #2d3748;
+    padding: 20px;
+    border-radius: 12px;
+    width: 280px;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card h3 {
+    font-size: 1.3rem;
+    color: #7ec8ff;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    color: #cbd5e0;
+}
+
+.card .preco {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+.card button.gerenciar,
+.card a.botao {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #5790c5;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.card button.gerenciar:hover,
+.card a.botao:hover {
+    background-color: #7ec8ff;
+    color: #001f3f;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #7ec8ff;
+}
+
+/* ===============================
+   HISTÓRICO DE PAGAMENTOS
+=================================*/
+.historico-pagamentos table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+}
+
+.historico-pagamentos th,
+.historico-pagamentos td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
+
+.historico-pagamentos th {
+    background-color: #1e2a38;
+    color: #7ec8ff;
+    text-transform: uppercase;
+}
+
+.historico-pagamentos td {
+    background-color: #2d3748;
+    color: #cbd5e0;
+}
+
+.historico-pagamentos td.pago {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.historico-pagamentos td.pendente {
+    color: #facc15;
+    font-weight: bold;
+}
+
+.historico-pagamentos td.atrasado {
+    color: #f87171;
+    font-weight: bold;
+}
+
+/* ===============================
+   AÇÕES DO USUÁRIO
+=================================*/
+.acoes-usuario {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 60px;
+}
+
+button#btnLogout,
+button#btnExcluir {
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button#btnLogout {
+    background-color: #5790c5;
+    color: #fff;
+}
+
+button#btnLogout:hover {
+    background-color: #7ec8ff;
+    color: #001f3f;
+    transform: scale(1.05);
+}
+
+button#btnExcluir {
+    background-color: #f87171;
+    color: #fff;
+}
+
+button#btnExcluir:hover {
+    background-color: #ef4444;
+    transform: scale(1.05);
+}
+
+/* ===============================
+   BOTÃO SUPORTE WHATSAPP
+=================================*/
+.botao-suporte {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.botao-suporte img {
+    width: 40px;
+    height: 40px;
+}
+
+.botao-suporte:hover {
+    background-color: #1ebe57;
+    transform: scale(1.1);
+}
+
+/* ===============================
+   RESPONSIVIDADE
+=================================*/
+@media (max-width: 768px) {
+    .perfil-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info-usuario {
+        text-align: center;
+    }
+
+    .foto-perfil img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 90%;
+    }
+
+    .acoes-usuario {
+        flex-direction: column;
+    }
+
+    button#btnLogout,
+    button#btnExcluir {
+        width: 100%;
+    }
+
+    .voltar-home img {
+        width: 120px;
+    }
+}

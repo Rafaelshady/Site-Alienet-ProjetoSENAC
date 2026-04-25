@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho - AlienNet</title>
+  <link rel="stylesheet" href="carrinho.css">
+</head>
+
+<body>
+  <!-- Botão Voltar para a Home -->
+  <a href="index.html" class="voltar-home">
+    <img src="imagens/logo-alienet.png" alt="Voltar para a página inicial">
+  </a>
+
+  <main class="carrinho-container">
+    <h1>Meu Carrinho</h1>
+
+    <!-- Carrinho visível apenas para usuário logado -->
+    <div id="carrinhoLogado">
+      <div id="carrinhoProdutos" class="carrinho-produtos">
+        <!-- Produtos serão inseridos aqui via JS -->
+      </div>
+      <div class="carrinho-total">
+        <h2>Total: <span id="totalCarrinho">R$ 0,00</span></h2>
+        <a href="pagamento.html" class="botao">Finalizar Compra</a>
+        <button id="limparCarrinho" class="botao limpar">Limpar Carrinho</button>
+      </div>
+    </div>
+
+    <!-- Mensagem caso não esteja logado -->
+    <div id="carrinhoNaoLogado" style="display:none; text-align:center; margin-top:50px;">
+      <p>Você precisa <a href="login.html">fazer login</a> para acessar o carrinho.</p>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const usuarioLogado = localStorage.getItem('usuarioLogado'); // "true" ou null
+      const carrinhoLogado = document.getElementById('carrinhoLogado');
+      const carrinhoNaoLogado = document.getElementById('carrinhoNaoLogado');
+      const carrinhoProdutos = document.getElementById('carrinhoProdutos');
+      const totalCarrinho = document.getElementById('totalCarrinho');
+      const btnLimpar = document.getElementById('limparCarrinho');
+
+      // Checa login
+      if (usuarioLogado !== "true") {
+        carrinhoLogado.style.display = 'none';
+        carrinhoNaoLogado.style.display = 'block';
+        return;
+      } else {
+        carrinhoLogado.style.display = 'block';
+        carrinhoNaoLogado.style.display = 'none';
+      }
+
+      // Função para formatar preços
+      function formatarPreco(precoStr) {
+        return Number(precoStr.replace('R$', '').replace('.', '').replace(',', '.'));
+      }
+
+      // Atualiza carrinho
+      function atualizarCarrinho() {
+        const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+        carrinhoProdutos.innerHTML = '';
+        let total = 0;
+
+        if (carrinho.length === 0) {
+          carrinhoProdutos.innerHTML = '<p>O carrinho está vazio.</p>';
+          totalCarrinho.textContent = 'R$ 0,00';
+          return;
+        }
+
+        carrinho.forEach((item, index) => {
+          if (!item.quantidade) item.quantidade = 1;
+          const precoItem = formatarPreco(item.preco) * item.quantidade;
+          total += precoItem;
+
+          const div = document.createElement('div');
+          div.className = 'carrinho-item';
+          div.innerHTML = `
+            <h3>${item.nome}</h3>
+            <p>${item.descricao}</p>
+            <p class="preco">R$ ${precoItem.toFixed(2).replace('.', ',')}</p>
+            <label>Quantidade:
+              <input type="number" min="1" value="${item.quantidade}" data-index="${index}" class="quantidade">
+            </label>
+            <button class="remover" data-index="${index}">Remover</button>
+          `;
+          carrinhoProdutos.appendChild(div);
+        });
+
+        totalCarrinho.textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+      }
+
+      // Alterar quantidade
+      carrinhoProdutos.addEventListener('input', (e) => {
+        if (e.target.classList.contains('quantidade')) {
+          const index = e.target.getAttribute('data-index');
+          let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+          let novaQtd = parseInt(e.target.value);
+          if (isNaN(novaQtd) || novaQtd < 1) novaQtd = 1;
+          carrinho[index].quantidade = novaQtd;
+          localStorage.setItem('carrinho', JSON.stringify(carrinho));
+          atualizarCarrinho();
+        }
+      });
+
+      // Remover item
+      carrinhoProdutos.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remover')) {
+          const index = e.target.getAttribute('data-index');
+          let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+          carrinho.splice(index, 1);
+          localStorage.setItem('carrinho', JSON.stringify(carrinho));
+          atualizarCarrinho();
+        }
+      });
+
+      // Limpar carrinho
+      btnLimpar.addEventListener('click', () => {
+        if (confirm("Deseja realmente limpar o carrinho?")) {
+          localStorage.removeItem('carrinho');
+          atualizarCarrinho();
+        }
+      });
+
+      atualizarCarrinho();
+    });
+  </script>
+
+</body>
+</html>

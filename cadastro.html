@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registro - Alienet</title>
+    <link rel="stylesheet" href="cadastro.css" />
+</head>
+
+<body>
+    <a href="index.html" class="voltar-home" title="Voltar para a Home">
+        <img src="imagens/logo-alienet.png" alt="Voltar para a Home" />
+    </a>
+
+    <div class="container">
+        <h1>Registro</h1>
+        <p>Preencha seus dados para criar sua conta.</p>
+
+        <!-- Mensagens -->
+        <div id="mensagemErro" style="display:none;"></div>
+        <div id="mensagemSucesso" style="display:none;"></div>
+
+        <form onsubmit="registrarUsuario(event)">
+            <!-- seus campos de formulário aqui -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="nome">Nome completo:</label>
+                    <input type="text" id="nome" name="nome" required />
+                </div>
+                <div class="input-group">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" required />
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="telefone">Telefone:</label>
+                    <input type="tel" id="telefone" name="telefone" required />
+                </div>
+                <div class="input-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" required />
+                </div>
+                <div class="input-group">
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" id="bairro" name="bairro" required />
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" required />
+                </div>
+                <div class="input-group">
+                    <label for="codigo">Código de verificação:</label>
+                    <input type="text" id="codigo" name="codigo" required />
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" required />
+                </div>
+                <div class="input-group">
+                    <label for="confirmaSenha">Confirmar senha:</label>
+                    <input type="password" id="confirmaSenha" name="confirmaSenha" required />
+                </div>
+            </div>
+
+            <button type="submit">Criar Conta</button>
+        </form>
+    </div>
+
+    <section>
+        <a href="https://web.whatsapp.com/" class="botao-suporte" target="_blank">
+            <img src="imagens/logo-whatsapp.png" alt="logo-alienet">
+        </a>
+    </section>
+
+    <script>
+        function registrarUsuario(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const confirmaSenha = document.getElementById('confirmaSenha').value;
+
+            const mensagemErro = document.getElementById('mensagemErro');
+            const mensagemSucesso = document.getElementById('mensagemSucesso');
+
+            mensagemErro.style.display = 'none';
+            mensagemSucesso.style.display = 'none';
+
+            if (senha !== confirmaSenha) {
+                mensagemErro.textContent = "As senhas não coincidem!";
+                mensagemErro.style.display = 'block';
+                return;
+            }
+
+            // Verifica se já existe usuário com o mesmo e-mail
+            const usuarioSalvo = JSON.parse(localStorage.getItem('usuario'));
+            if (usuarioSalvo && usuarioSalvo.email === email) {
+                mensagemErro.textContent = "Este e-mail já está cadastrado!";
+                mensagemErro.style.display = 'block';
+                return;
+            }
+
+            // Criação do usuário
+            const usuario = {
+                nome: document.getElementById('nome').value,
+                cpf: document.getElementById('cpf').value,
+                telefone: document.getElementById('telefone').value,
+                email: email,
+                cidade: document.getElementById('cidade').value,
+                bairro: document.getElementById('bairro').value,
+                cep: document.getElementById('cep').value,
+                codigo: document.getElementById('codigo').value,
+                senha: senha,
+                celular: { modelo: "iPhone 14", imei: "123456789012345" },
+                internet: { velocidade: "300Mb", franquia: "120GB" },
+                streaming: { nome: "Netflix", validade: "30/09/2025" }
+            };
+
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+            localStorage.setItem('usuarioAtual', JSON.stringify(usuario));
+            localStorage.setItem('usuarioLogado', 'true');
+
+            mensagemSucesso.textContent = "Cadastro realizado com sucesso!";
+            mensagemSucesso.style.display = 'block';
+
+            // Redireciona após 1,5s
+            setTimeout(() => {
+                window.location.href = "arearestrita.html";
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,487 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Corpo da página */
+html,
+body {
+    height: 100%;
+    /* Garante altura total */
+}
+
+body {
+    background: linear-gradient(135deg, #000010, #0a0f2d, #001f3f);
+    color: #fff;
+    background-blend-mode: overlay;
+    background-color: rgba(2, 44, 73, 0.8);
+    position: relative;
+    /* Necessário para ::before funcionar */
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    /* Fixa no viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    animation: stars 100s linear infinite;
+    z-index: -1;
+}
+
+/* Animação de movimento das estrelas */
+@keyframes stars {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 10000px 5000px;
+    }
+}
+
+/* ===================== HEADER ===================== */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+
+/* Logo */
+.logo img {
+    width: 110px;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Navegação */
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Efeito Neon nas opções do menu (linha abaixo) */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    /* Coloca a linha abaixo do texto */
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #7ec8ff;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #7ec8ff;
+    text-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    background-color: transparent;
+    /* Fundo transparente ao passar o mouse */
+}
+
+/* Mostrar o efeito neon abaixo do texto */
+nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+/* Login / Cadastro */
+.login {
+    display: flex;
+    gap: 10px;
+}
+
+.login a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #5790c5;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: transparent;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.login a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #7ec8ff;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+.login a:hover {
+    color: #7ec8ff;
+    box-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    transform: translateY(-4px);
+}
+
+.login a:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+/* ===== Dropdown de usuário ===== */
+.usuario-dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.icone-usuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    border: 2px solid #5790c5;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1b2735;
+    border: 1px solid #5790c5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    min-width: 140px;
+    text-align: center;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: #c3d9ff;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #5790c5;
+    color: #0a1e38;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+
+
+/* ===================== CARROSSEL ===================== */
+.container-carrossel1 {
+    width: 76%;          /* O contêiner do carrossel ocupa 76% da largura da tela/pai */
+    overflow: hidden;    /* Esconde qualquer parte do conteúdo que ultrapassar os limites do contêiner */
+    border-radius: 15px; /* Arredonda os cantos do contêiner em 15px */
+}
+
+.slides1 {
+    display: none;   /* Os elementos com essa classe ficam escondidos por padrão */
+    width: 85%;      /* Quando mostrados, ocupam 85% da largura do pai */
+}
+
+.slides1 img {
+    width: 100%;          /* Faz a imagem ocupar toda a largura do elemento .slides1 */
+    border-radius: 15px;  /* Deixa as imagens com cantos arredondados também */
+}
+
+/* Pontos do carrossel */
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.ativo {
+    background-color: #7ec8ff;
+}
+
+/* ===================== SEÇÃO OFERTAS ===================== */
+.Ofertas {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin: 50px 0 30px;
+    color: #a8d0ff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.thumb-wrapper {
+    background: linear-gradient(135deg, #1a2a44, #204060);
+    border-radius: 15px;
+    padding: 15px;
+    color: #cbd5e0;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5), 0 0 10px #5790c5aa;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 220px;
+}
+
+.thumb-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 0 15px #7ec8ff66;
+}
+
+.thumb-wrapper img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.thumb-content h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #a1cdf1;
+    margin-bottom: 10px;
+}
+
+.thumb-content p {
+    font-size: 0.95rem;
+    color: #c3d9ffcc;
+}
+
+/* ===================== SEÇÃO SOBRE (Melhorada) ===================== */
+.historia {
+    width: 90%;
+    margin: 60px auto;
+    padding: 20px 0;
+}
+
+.historia-titulo {
+    text-align: center;
+    font-size: 2.4rem;
+    color: #7ec8ff;
+    font-weight: 800;
+    margin-bottom: 50px;
+}
+
+.historia-conteudo {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.historia-coluna {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.historia-topico {
+    background: linear-gradient(145deg, #1b2b44, #20385b);
+    border-radius: 15px;
+    padding: 25px 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 15px #7ec8ff33;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid rgba(126, 200, 255, 0.3);
+}
+
+.historia-topico:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.7), 0 0 25px #7ec8ff88;
+}
+
+.historia-topico h4 {
+    color: #7ec8ff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-shadow: 0 0 5px #7ec8ff33;
+}
+
+.historia-topico p {
+    color: #cbd5e0;
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.historia-topico:hover p {
+    color: #e0f0ff;
+}
+
+/* Coluna destaque */
+.historia-destaque article {
+    background: linear-gradient(145deg, #204060, #306080);
+    border-radius: 15px;
+    padding: 30px 25px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7), 0 0 20px #7ec8ff55;
+    border: 1px solid rgba(126, 200, 255, 0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.historia-destaque article:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 0 30px #7ec8ffaa;
+}
+
+.historia-destaque h4 {
+    font-size: 1.4rem;
+    color: #7ec8ff;
+    margin-bottom: 15px;
+}
+
+.historia-destaque p {
+    color: #e0f0ff;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+
+/* ===================== BOTÃO SUPORTE ===================== */
+.botao-suporte {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.botao-suporte:hover {
+    transform: translateY(-4px) scale(1.05);
+    background-color: #1ebe57;
+}
+
+.botao-suporte img {
+    width: 40px;
+    height: 40px;
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+    color: #cbd5e0;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.95rem;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: stars 100s linear infinite;
+}
+
+footer p {
+    margin-bottom: 20px;
+}
+
+footer .redes-sociais a {
+    margin: 0 10px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+footer .redes-sociais img {
+    width: 30px;
+    height: 30px;
+}
+
+footer .redes-sociais a:hover {
+    transform: scale(1.1);
+}
+
+/* ===================== RESPONSIVO ===================== */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .login {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .container-carrossel1 {
+        width: 95%;
+    }
+
+    .historia-conteudo {
+        flex-direction: column;
+    }
+
+    .thumb-wrapper {
+        margin: 10px auto;
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .Ofertas {
+        font-size: 2rem;
+    }
+
+    .historia-titulo {
+        font-size: 1.8rem;
+    }
+}

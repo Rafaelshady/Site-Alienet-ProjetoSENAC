@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento de Internet</title>
+    <link rel="stylesheet" href="pagamento.css">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="voltar-home">
+            <img src="imagens/logo-alienet.png" alt="Voltar para a página inicial">
+        </a>
+    </header>
+
+    <!-- Mensagem caso não esteja logado -->
+    <div id="pagamentoNaoLogado" style="display:none; text-align:center; margin-top:50px;">
+        <p>Você precisa <a href="login.html">fazer login</a> para acessar a página de pagamento.</p>
+    </div>
+
+    <!-- Container de pagamento -->
+    <div class="container" id="pagamentoContainer" style="display:none;">
+        <h1>Pagamento</h1>
+        <p id="planoSelecionado">Insira seus dados para concluir o pagamento.</p>
+
+        <!-- Seleção de método de pagamento -->
+        <div class="metodo-pagamento">
+            <label for="metodo">Escolha a forma de pagamento:</label>
+            <select id="metodo">
+                <option value="cartao">Cartão de Crédito</option>
+                <option value="pix">Pix</option>
+                <option value="boleto">Boleto</option>
+            </select>
+        </div>
+
+        <form id="formPagamento" action="#" method="POST">
+            <!-- Campos Cartão -->
+            <div class="campo-cartao">
+                <div class="input-group">
+                    <label for="nome">Nome completo:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="cartao">Número do cartão:</label>
+                    <input type="text" id="cartao" name="cartao" required>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="validade">Validade:</label>
+                        <input type="month" id="validade" name="validade" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cvv">CVV:</label>
+                        <input type="text" id="cvv" name="cvv" maxlength="3" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campos Pix -->
+            <div class="campo-pix">
+                <p>Para pagamento via Pix, utilize o QR Code abaixo ou copie a chave Pix:</p>
+                <img src="imagens/qr-code.png" alt="QR Code Pix" style="max-width:200px; margin:10px 0;">
+                <p>Chave Pix: 000.000.000-00</p>
+            </div>
+
+            <!-- Campos Boleto -->
+            <div class="campo-boleto">
+                <p>Para pagamento via Boleto, será gerado um PDF com o boleto após clicar em "Confirmar Pagamento".</p>
+            </div>
+
+            <button type="button" id="btnConfirmar">Confirmar Pagamento</button>
+        </form>
+    </div>
+
+    <!-- Overlay e popup de sucesso -->
+    <div id="overlay"></div>
+    <div id="popupSucesso"></div>
+
+    <section>
+        <a href="https://web.whatsapp.com/" class="botao-suporte" target="_blank">
+            <img src="imagens/logo-whatsapp.png" alt="logo-alienet">
+        </a>
+    </section>
+
+    <script>
+        const usuarioLogado = localStorage.getItem('usuarioLogado');
+        const pagamentoContainer = document.getElementById("pagamentoContainer");
+        const pagamentoNaoLogado = document.getElementById("pagamentoNaoLogado");
+        const planoSelecionado = document.getElementById("planoSelecionado");
+
+        const params = new URLSearchParams(window.location.search);
+        const plano = params.get("plano");
+
+        if (usuarioLogado) {
+            pagamentoContainer.style.display = "block";
+            pagamentoNaoLogado.style.display = "none";
+            if (plano) planoSelecionado.textContent = `Você está assinando o plano: ${plano}`;
+        } else {
+            pagamentoNaoLogado.style.display = "block";
+            pagamentoContainer.style.display = "none";
+            const link = pagamentoNaoLogado.querySelector("a");
+            if (plano) link.setAttribute("href", `login.html?redirect=pagamento.html&plano=${encodeURIComponent(plano)}`);
+            else link.setAttribute("href", `login.html?redirect=pagamento.html`);
+        }
+
+        // Controle do método de pagamento
+        const metodoSelect = document.getElementById('metodo');
+        const campoCartao = document.querySelector('.campo-cartao');
+        const campoPix = document.querySelector('.campo-pix');
+        const campoBoleto = document.querySelector('.campo-boleto');
+
+        function atualizarCampos() {
+            const metodo = metodoSelect.value;
+            campoCartao.style.display = metodo === 'cartao' ? 'block' : 'none';
+            campoPix.style.display = metodo === 'pix' ? 'block' : 'none';
+            campoBoleto.style.display = metodo === 'boleto' ? 'block' : 'none';
+        }
+
+        metodoSelect.addEventListener('change', atualizarCampos);
+        atualizarCampos();
+
+        // Botão Confirmar pagamento para qualquer método
+        const btnConfirmar = document.getElementById('btnConfirmar');
+        const popupSucesso = document.getElementById('popupSucesso');
+        const overlay = document.getElementById('overlay');
+
+        btnConfirmar.addEventListener('click', () => {
+            const metodo = metodoSelect.value;
+
+            // Esconde todos os campos e botão
+            campoCartao.style.display = "none";
+            campoPix.style.display = "none";
+            campoBoleto.style.display = "none";
+            btnConfirmar.style.display = "none";
+
+            planoSelecionado.textContent = "";
+
+            overlay.style.display = "block";
+            popupSucesso.style.display = "block";
+            popupSucesso.textContent = `Pagamento concluído com sucesso via ${metodo === 'cartao' ? 'Cartão' : metodo === 'pix' ? 'Pix' : 'Boleto'}!`;
+
+            setTimeout(() => window.location.href = "index.html", 3000);
+        });
+    </script>
+</body>
+
+</html>

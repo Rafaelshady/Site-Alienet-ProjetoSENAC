@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AlienNet</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <a href="index.html" class="voltar-home">
+    <img src="imagens/logo-alienet.png" alt="Voltar para a página inicial">
+  </a>
+
+  <div class="container">
+    <h1>Entrar na conta</h1>
+    <p>Insira seus dados para acessar sua conta AlienNet</p>
+
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="input-group">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+      </div>
+
+      <button type="submit" id="btnLogin">Entrar</button>
+
+      <div id="mensagem" class="mensagem"></div>
+
+      <div class="links">
+        <a href="#">Esqueceu sua senha?</a>
+        <a href="cadastro.html">Não tem uma conta? Cadastre-se</a>
+      </div>
+    </form>
+  </div>
+
+  <a href="https://web.whatsapp.com/" class="botao-suporte" target="_blank">
+    <img src="imagens/logo-whatsapp.png" alt="Suporte WhatsApp">
+  </a>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const mensagem = document.getElementById('mensagem');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Usuário salvo no localStorage (simulado)
+      const usuarioSalvo = JSON.parse(localStorage.getItem('usuario'));
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+
+      if (usuarioSalvo && usuarioSalvo.email === email && usuarioSalvo.senha === senha) {
+        // Marca como logado
+        localStorage.setItem('usuarioLogado', 'true');
+        localStorage.setItem('usuarioAtual', JSON.stringify(usuarioSalvo));
+
+        // Verifica se veio de redirecionamento
+        const params = new URLSearchParams(window.location.search);
+        const redirectPage = params.get("redirect");
+        const plano = params.get("plano");
+
+        if (redirectPage) {
+          // Adiciona parâmetro plano só se existir
+          const redirectUrl = plano ? `${redirectPage}?plano=${encodeURIComponent(plano)}` : redirectPage;
+          window.location.href = redirectUrl;
+        } else {
+          // Se não tiver redirect, vai para dashboard
+          window.location.href = "arearestrita.html";
+        }
+      } else {
+        mensagem.textContent = "E-mail ou senha incorretos!";
+        mensagem.classList.add('erro');
+      }
+    });
+  </script>
+</body>
+</html>

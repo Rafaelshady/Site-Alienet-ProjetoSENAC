@@ -1,0 +1,455 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    position: relative;
+    /* necessário para ::before */
+}
+
+body {
+    background: linear-gradient(135deg, #000010, #0a0f2d, #001f3f);
+    color: #fff;
+    background-blend-mode: overlay;
+    background-color: rgba(2, 44, 73, 0.8);
+    position: relative;
+    /* Necessário para ::before funcionar */
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Fundo com imagem e textura animada de estrelas */
+body::before {
+    content: "";
+    position: fixed;
+    /* mantém no viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    z-index: -1;
+    animation: stars 100s linear infinite;
+}
+
+/* Animação da textura de estrelas */
+@keyframes stars {
+    from {
+        background-position: 0 0, 0 0;
+    }
+
+    to {
+        background-position: 10000px 5000px, 0 0;
+    }
+}
+
+
+/* Cabeçalho (Nav Bar) */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    /* Garantir que ocupe a largura total */
+}
+
+/* Logo */
+.logo img {
+    width: 110px;
+}
+
+/* Navegação */
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Efeito Neon nas opções do menu (linha abaixo) */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    /* Coloca a linha abaixo do texto */
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #7ec8ff;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #7ec8ff;
+    text-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    background-color: transparent;
+    /* Fundo transparente ao passar o mouse */
+}
+
+/* Mostrar o efeito neon abaixo do texto */
+nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+
+
+/* Logo (Voltar para a Home) */
+.voltar-home img {
+    width: 110px;
+    transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito Neon no hover para a logo (mesmo efeito da navbar) */
+.voltar-home img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+
+}
+
+/* Login / Cadastro */
+.login {
+    display: flex;
+    gap: 10px;
+}
+
+.login a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #5790c5;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: transparent;
+}
+
+/* ===== Dropdown de usuário ===== */
+.usuario-dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.icone-usuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    border: 2px solid #5790c5;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1b2735;
+    border: 1px solid #5790c5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    min-width: 140px;
+    text-align: center;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: #c3d9ff;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #5790c5;
+    color: #0a1e38;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+
+/* Efeito Neon no hover para os botões de Login e Cadastro */
+.login a:hover {
+    background-color: transparent;
+    color: #7ec8ff;
+    text-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    box-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    transform: translateY(-6px);
+}
+
+/* Efeito da linha abaixo do texto (semelhante à navbar) */
+.login a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #7ec8ff;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Mostrar a linha de neon abaixo do botão */
+.login a:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+/* Container dos celulares */
+.shopping-celulares .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 0 40px;
+}
+
+/* Card do celular */
+.shopping-celulares .plano-wrapper {
+    width: 320px;
+    background: linear-gradient(135deg, #1a2a44, #204060);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.6),
+        0 0 10px #5790c5aa;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shopping-celulares .plano-wrapper:hover {
+    transform: translateY(-10px);
+    box-shadow:
+        0 15px 25px rgba(0, 0, 0, 0.7),
+        0 0 20px #7ec8ffcc;
+}
+
+.shopping-celulares .plano img {
+    width: 100%;
+    aspect-ratio: 2 / 1.5;
+    /* largura:altura proporcional */
+    object-fit: contain;
+    border-radius: 20px 20px 0 0;
+    transition: transform 0.4s ease;
+}
+
+.shopping-celulares .plano img:hover {
+    transform: scale(1.05);
+}
+
+
+/* Conteúdo do card */
+.shopping-celulares .plano {
+    padding: 25px 20px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.shopping-celulares .plano h2 {
+    font-family: 'Segoe UI Black', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    color: #a1cdf1;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 4px #142c54;
+}
+
+.shopping-celulares .plano p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #c3d9ffcc;
+}
+
+.shopping-celulares .preco {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #7ec8ff;
+    text-shadow: 0 0 8px #7ec8ffbb;
+    margin-bottom: 18px;
+}
+
+/* Botão comprar */
+.shopping-celulares .botao {
+    background: #5790c5;
+    padding: 12px 28px;
+    font-weight: 700;
+    border-radius: 30px;
+    box-shadow: 0 0 15px #5790c5aa;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.shopping-celulares .botao:hover {
+    background: #7ec8ff;
+    box-shadow:
+        0 0 20px #7ec8ff,
+        0 0 30px #7ec8ff;
+    color: #0a1e38;
+}
+
+/* Promoção no topo do card */
+.shopping-celulares .promocao {
+    color: #7ec8ff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 15px 0;
+    border-radius: 20px 20px 0 0;
+    text-shadow: 0 0 6px #5790c5;
+}
+
+/* Botão do Suporte */
+.botao-suporte {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    /* verde oficial WhatsApp */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.botao-suporte:hover {
+    background-color: #1ebe57;
+    /* verde um pouco mais escuro no hover */
+}
+
+.botao-suporte img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Rodapé */
+footer {
+    color: #cbd5e0;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.95rem;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: stars 100s linear infinite;
+}
+
+/* alterações feitas */
+footer p {
+    margin-bottom: 20px;
+}
+
+footer .redes-sociais a {
+    margin: 0 10px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+footer .redes-sociais img {
+    width: 30px;
+    height: 30px;
+}
+
+footer .redes-sociais a:hover {
+    transform: scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .login {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .shopping-celulares .container {
+        padding: 10px;
+        gap: 30px;
+    }
+
+    .shopping-celulares .plano-wrapper {
+        width: 90%;
+    }
+
+    .shopping-celulares .plano img {
+        height: 180px;
+    }
+}
+
+.login-carrinho {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.carrinho-link {
+    position: relative;
+    display: inline-block;
+}
+
+.icone-carrinho {
+    width: 28px;
+    height: 28px;
+}
+
+#badgeCarrinho {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff4d4d;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+}

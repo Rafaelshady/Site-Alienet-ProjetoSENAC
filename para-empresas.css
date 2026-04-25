@@ -1,0 +1,607 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    position: relative;
+}
+
+body {
+    background: linear-gradient(135deg, #000010, #0a0f2d, #001f3f);
+    color: #fff;
+    background-blend-mode: overlay;
+    background-color: rgba(2, 44, 73, 0.8);
+    position: relative;
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Fundo com imagem e textura animada de estrelas */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    z-index: -1;
+    animation: stars 100s linear infinite;
+}
+
+/* Animação da textura de estrelas */
+@keyframes stars {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 10000px 5000px, 0 0; }
+}
+
+/* Cabeçalho */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+.logo img {
+    width: 110px;
+}
+
+/* Navegação */
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #7ec8ff;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #7ec8ff;
+    text-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    background-color: transparent;
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+/* Logo home */
+.voltar-home img {
+    width: 110px;
+    transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;
+}
+
+.voltar-home img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Login / Cadastro */
+.login {
+    display: flex;
+    gap: 10px;
+}
+
+.login a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #5790c5;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: transparent;
+}
+
+.login a:hover {
+    background-color: transparent;
+    color: #7ec8ff;
+    text-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    box-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    transform: translateY(-6px);
+}
+
+.login a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #7ec8ff;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+.login a:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+/* ===== Dropdown de usuário ===== */
+.usuario-dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.icone-usuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    border: 2px solid #5790c5;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1b2735;
+    border: 1px solid #5790c5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    min-width: 140px;
+    text-align: center;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: #c3d9ff;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #5790c5;
+    color: #0a1e38;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+
+/* Título 1 */
+.titulo1 {
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 80px auto 100px auto;
+    width: 70%;
+    box-shadow: 0 4px 12px #7ec8ff;
+    border: 3px solid #5790c5;
+}
+
+/* Container dos planos */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 0 40px;
+}
+
+/* Cards */
+.plano-wrapper {
+    width: 320px;
+    background: linear-gradient(135deg, #1a2a44, #204060);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.6),
+        0 0 10px #5790c5aa;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+}
+
+.plano-wrapper:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow:
+        0 15px 25px rgba(0, 0, 0, 0.7),
+        0 0 25px #7ec8ffcc,
+        0 0 40px #5790c5aa inset;
+}
+
+/* Promoção / Badge */
+.promocao {
+    width: 100%;
+    background-color: #0a1e38;
+    color: #7ec8ff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 15px 0;
+    border-radius: 20px 20px 0 0;
+    text-shadow: 0 0 6px #5790c5;
+    text-align: center;
+    user-select: none;
+}
+
+/* Conteúdo do plano */
+.plano {
+    padding: 25px 20px;
+    text-align: center;
+    color: #cbd5e0;
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.plano h2 {
+    font-weight: 900;
+    color: #a1cdf1;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 4px #142c54;
+    user-select: none;
+}
+
+.plano p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #c3d9ffcc;
+    flex-grow: 1;
+}
+
+/* Preço */
+.preco {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #7ec8ff;
+    text-shadow: 0 0 8px #7ec8ffbb;
+    margin-bottom: 18px;
+    user-select: none;
+}
+
+/* Botão Assinar */
+.botao {
+    background: #5790c5;
+    padding: 12px 28px;
+    font-weight: 700;
+    border-radius: 30px;
+    box-shadow: 0 0 15px #5790c5aa;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    user-select: none;
+}
+
+.botao:hover {
+    background: #7ec8ff;
+    box-shadow:
+        0 0 20px #7ec8ff,
+        0 0 30px #7ec8ff;
+    color: #0a1e38;
+}
+
+/* Botão Suporte WhatsApp com tooltip */
+.botao-suporte {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.botao-suporte:hover {
+    background-color: #1ebe57;
+}
+
+.botao-suporte::after {
+    content: "Suporte via WhatsApp";
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: #25D366;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.botao-suporte:hover::after {
+    opacity: 1;
+}
+
+.botao-suporte img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Rodapé */
+footer { 
+    color: #cbd5e0;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.95rem;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: stars 100s linear infinite;
+}
+
+footer p {
+    margin-bottom: 20px;
+}
+
+footer .redes-sociais a {
+    margin: 0 10px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+footer .redes-sociais img {
+    width: 30px;
+    height: 30px;
+}
+
+footer .redes-sociais a:hover {
+    transform: scale(1.1);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .login {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-container1 {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-input1, .search-button1 {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .container {
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .plano-wrapper {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+/* =========================
+   DESTAQUES CORPORATIVOS
+========================= */
+.destaques-corporativos {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 60px 20px;
+    flex-wrap: wrap;
+}
+
+.destaques-corporativos .destaque {
+    background: linear-gradient(135deg, #1e2a38, #2a3b50);
+    border-radius: 20px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 10px #5790c5aa;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.destaques-corporativos .destaque:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.7), 0 0 20px #7ec8ffcc;
+}
+
+.destaques-corporativos .destaque img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.destaques-corporativos .destaque p {
+    color: #7ec8ff;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* =========================
+   TESTEMUNHOS / DEPOIMENTOS
+========================= */
+.testemunhos {
+    margin: 80px 20px;
+    text-align: center;
+}
+
+.testemunhos h2 {
+    font-size: 2rem;
+    color: #a1cdf1;
+    margin-bottom: 40px;
+    text-shadow: 0 0 6px #5790c5;
+}
+
+.container-testes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.card-teste {
+    background: linear-gradient(135deg, #1e2a38, #2c3e50);
+    border-radius: 20px;
+    padding: 25px 20px;
+    width: 280px;
+    color: #cbd5e0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 10px #5790c5aa;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.card-teste:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.7), 0 0 20px #7ec8ffcc;
+}
+
+.card-teste p {
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.card-teste strong {
+    color: #7ec8ff;
+}
+
+/* =========================
+   COMPARATIVO DE PLANOS
+========================= */
+.comparativo {
+    margin: 80px 20px;
+    text-align: center;
+}
+
+.comparativo h2 {
+    font-size: 2rem;
+    color: #a1cdf1;
+    margin-bottom: 30px;
+    text-shadow: 0 0 6px #5790c5;
+}
+
+.comparativo table {
+    width: 90%;
+    margin: 0 auto 50px auto;
+    border-collapse: collapse;
+    background: linear-gradient(135deg, #1a2a44, #204060);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 10px #5790c5aa;
+}
+
+.comparativo th, .comparativo td {
+    padding: 15px 20px;
+    color: #cbd5e0;
+    border-bottom: 1px solid #5790c5aa;
+    text-align: center;
+}
+
+.comparativo th {
+    background: linear-gradient(135deg, #1e2a38, #32608b);
+    font-size: 1.1rem;
+    color: #a1cdf1;
+}
+
+.comparativo tr:hover {
+    background: rgba(126, 200, 255, 0.2);
+}
+
+/* =========================
+   CONTATO COMERCIAL
+========================= */
+.contato-comercial {
+    background: linear-gradient(135deg, #1e2a38, #0a1e38);
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 20px;
+    margin: 80px 40px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 15px #5790c5aa;
+}
+
+.contato-comercial h2 {
+    font-size: 2rem;
+    color: #7ec8ff;
+    margin-bottom: 20px;
+    text-shadow: 0 0 6px #5790c5;
+}
+
+.contato-comercial p {
+    color: #cbd5e0;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.contato-comercial .botaozap {
+    background: #5790c5;
+    padding: 15px 35px;
+    font-weight: 700;
+    border-radius: 30px;
+    box-shadow: 0 0 15px #5790c5aa;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.1rem;
+    user-select: none;
+}
+.contato-comercial .botaozap:hover {
+    box-shadow: 0 0 25px #7ec8ffcc, 0 0 40px #5790c5aa inset;
+}

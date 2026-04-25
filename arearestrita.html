@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área Restrita - AlienNet</title>
+  <link rel="stylesheet" href="arearestrita.css">
+</head>
+
+<body>
+
+  <!-- Cabeçalho / Logo -->
+  <header>
+    <a href="index.html" class="voltar-home">
+      <img src="imagens/logo-alienet.png" alt="Voltar para a página inicial">
+    </a>
+  </header>
+
+  <main class="area-restrita">
+
+    <!-- Boas-vindas -->
+    <section class="boas-vindas">
+      <h1>Bem-vindo, <span id="nomeUsuario"></span>!</h1>
+      <p>Confira seus produtos e serviços ativos e explore novidades para assinar ou comprar.</p>
+    </section>
+
+    <!-- Seção Perfil do Usuário -->
+    <section class="perfil-usuario">
+      <div class="perfil-container">
+
+        <!-- Foto do usuário -->
+        <div class="foto-perfil">
+          <img id="fotoUsuario" src="imagens/perfil.png" alt="">
+          <input type="file" id="inputFoto" style="display:none;">
+          <button id="btnEditarFoto">Editar Foto</button>
+          <button id="btnRemoverFoto">Remover Foto</button>
+        </div>
+
+        <!-- Informações do usuário -->
+        <div class="info-usuario">
+          <p><strong>Nome:</strong> <span id="nomeCliente"></span></p>
+          <p><strong>Email:</strong> <span id="emailCliente"></span></p>
+          <p><strong>Telefone:</strong> <span id="telefoneCliente"></span></p>
+          <p><strong>CPF:</strong> <span id="cpfCliente"></span></p>
+          <p><strong>Cidade:</strong> <span id="cidadeCliente"></span></p>
+          <p><strong>Bairro:</strong> <span id="bairroCliente"></span></p>
+          <p><strong>CEP:</strong> <span id="cepCliente"></span></p>
+          <button id="btnEditarInfo">Editar Informações</button>
+
+          <!-- Formulário para editar informações -->
+          <div id="formEditar" class="form-editar">
+            <input type="text" id="inputNome" placeholder="Nome">
+            <input type="email" id="inputEmail" placeholder="Email">
+            <input type="text" id="inputTelefone" placeholder="Telefone">
+            <input type="text" id="inputCpf" placeholder="CPF">
+            <input type="text" id="inputCidade" placeholder="Cidade">
+            <input type="text" id="inputBairro" placeholder="Bairro">
+            <input type="text" id="inputCep" placeholder="CEP">
+            <button id="btnSalvarInfo">Salvar Alterações</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Produtos e Serviços Ativos -->
+    <section class="meus-planos">
+      <h2>Meus Produtos e Serviços</h2>
+      <div class="cards" id="produtosAtivos"></div>
+    </section>
+
+    <!-- Novidades e Promoções -->
+    <section class="novidades">
+      <h2>Novidades e Promoções</h2>
+      <div class="cards" id="novidades"></div>
+    </section>
+
+    <!-- Histórico de Pagamentos -->
+    <section class="historico-pagamentos">
+      <h2>Histórico de Pagamentos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Produto / Serviço</th>
+            <th>Valor</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="historicoPagamentos"></tbody>
+      </table>
+    </section>
+
+    <!-- Ações do usuário -->
+    <section class="acoes-usuario">
+      <button id="btnLogout">Sair</button>
+      <button id="btnExcluir" class="excluir">Excluir Conta</button>
+    </section>
+
+  </main>
+
+  <!-- Botão de suporte WhatsApp -->
+  <a href="https://web.whatsapp.com/" class="botao-suporte" target="_blank">
+    <img src="imagens/logo-whatsapp.png" alt="Suporte WhatsApp">
+  </a>
+
+  <!-- JavaScript -->
+  <script>
+    const usuarioLogado = localStorage.getItem('usuarioLogado');
+    let usuario = JSON.parse(localStorage.getItem('usuarioAtual'));
+
+    if (!usuarioLogado || !usuario) {
+      window.location.href = "Login.html";
+    } else {
+      // Boas-vindas e perfil
+      document.getElementById('nomeUsuario').textContent = usuario.nome;
+      document.getElementById('nomeCliente').textContent = usuario.nome || "Não informado";
+      document.getElementById('emailCliente').textContent = usuario.email || "Não informado";
+      document.getElementById('telefoneCliente').textContent = usuario.telefone || "Não informado";
+      document.getElementById('cpfCliente').textContent = usuario.cpf || "Não informado";
+      document.getElementById('cidadeCliente').textContent = usuario.cidade || "Não informado";
+      document.getElementById('bairroCliente').textContent = usuario.bairro || "Não informado";
+      document.getElementById('cepCliente').textContent = usuario.cep || "Não informado";
+      if (usuario.foto) {
+        document.getElementById('fotoUsuario').src = usuario.foto;
+      }
+    }
+
+    // Define imagem padrão se não houver foto
+    const fotoPadrao = "imagens/perfil.png";
+    document.getElementById('fotoUsuario').src = usuario.foto ? usuario.foto : fotoPadrao;
+
+    // Edição da foto do perfil
+    const btnEditarFoto = document.getElementById('btnEditarFoto');
+    const btnRemoverFoto = document.getElementById('btnRemoverFoto');
+    const inputFoto = document.getElementById('inputFoto');
+    const fotoUsuario = document.getElementById('fotoUsuario');
+
+    btnEditarFoto.addEventListener('click', () => inputFoto.click());
+
+    inputFoto.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          fotoUsuario.src = reader.result;
+          usuario.foto = reader.result;
+          localStorage.setItem('usuarioAtual', JSON.stringify(usuario));
+
+          // Atualiza na lista de usuários
+          let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+          const index = usuarios.findIndex(u => u.email === usuario.email);
+          if (index !== -1) {
+            usuarios[index] = usuario;
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    btnRemoverFoto.addEventListener('click', () => {
+      fotoUsuario.src = "imagens/perfil-padrao.png";
+      usuario.foto = null;
+      localStorage.setItem('usuarioAtual', JSON.stringify(usuario));
+
+      let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+      const index = usuarios.findIndex(u => u.email === usuario.email);
+      if (index !== -1) {
+        usuarios[index] = usuario;
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      }
+    });
+
+    // Edição de informações do usuário
+    const btnEditarInfo = document.getElementById('btnEditarInfo');
+    const formEditar = document.getElementById('formEditar');
+    const inputNome = document.getElementById('inputNome');
+    const inputEmail = document.getElementById('inputEmail');
+    const inputTelefone = document.getElementById('inputTelefone');
+    const inputCpf = document.getElementById('inputCpf');
+    const inputCidade = document.getElementById('inputCidade');
+    const inputBairro = document.getElementById('inputBairro');
+    const inputCep = document.getElementById('inputCep');
+    const btnSalvarInfo = document.getElementById('btnSalvarInfo');
+
+    btnEditarInfo.addEventListener('click', () => {
+      formEditar.style.display = formEditar.style.display === 'none' ? 'block' : 'none';
+      inputNome.value = usuario.nome || '';
+      inputEmail.value = usuario.email || '';
+      inputTelefone.value = usuario.telefone || '';
+      inputCpf.value = usuario.cpf || '';
+      inputCidade.value = usuario.cidade || '';
+      inputBairro.value = usuario.bairro || '';
+      inputCep.value = usuario.cep || '';
+    });
+
+    btnSalvarInfo.addEventListener('click', () => {
+      usuario.nome = inputNome.value;
+      usuario.email = inputEmail.value;
+      usuario.telefone = inputTelefone.value;
+      usuario.cpf = inputCpf.value;
+      usuario.cidade = inputCidade.value;
+      usuario.bairro = inputBairro.value;
+      usuario.cep = inputCep.value;
+
+      localStorage.setItem('usuarioAtual', JSON.stringify(usuario));
+
+      let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+      const index = usuarios.findIndex(u => u.email === usuario.email);
+      if (index !== -1) {
+        usuarios[index] = usuario;
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      }
+
+      document.getElementById('nomeCliente').textContent = usuario.nome;
+      document.getElementById('emailCliente').textContent = usuario.email;
+      document.getElementById('telefoneCliente').textContent = usuario.telefone;
+      document.getElementById('cpfCliente').textContent = usuario.cpf;
+      document.getElementById('cidadeCliente').textContent = usuario.cidade;
+      document.getElementById('bairroCliente').textContent = usuario.bairro;
+      document.getElementById('cepCliente').textContent = usuario.cep;
+      document.getElementById('nomeUsuario').textContent = usuario.nome;
+
+      formEditar.style.display = 'none';
+      alert('Informações atualizadas com sucesso!');
+    });
+
+    // Logout / Excluir Conta
+    document.getElementById('btnLogout').addEventListener('click', () => {
+      localStorage.removeItem('usuarioLogado');
+      localStorage.removeItem('usuarioAtual');
+      window.location.href = "login.html";
+    });
+
+    document.getElementById('btnExcluir').addEventListener('click', () => {
+      if (confirm("Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
+        let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        usuarios = usuarios.filter(u => u.email !== usuario.email);
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        localStorage.removeItem('usuarioAtual');
+        localStorage.removeItem('usuarioLogado');
+        alert("Conta excluída com sucesso!");
+        window.location.href = "login.html";
+      }
+    });
+
+    // Função para preencher produtos, novidades e histórico
+    const produtosAtivos = [
+      { nome: "Celular Cadastrado", modelo: "iPhone 14", imei: "123456789012345" },
+      { nome: "Plano de Internet", modelo: "300Mb", franquia: "120GB" },
+      { nome: "Streaming Ativo", modelo: "Netflix", validade: "30/09/2025" }
+    ];
+    const containerProdutos = document.getElementById('produtosAtivos');
+    produtosAtivos.forEach(prod => {
+      const card = document.createElement('div');
+      card.className = 'card ativo';
+      let conteudo = `<h3>${prod.nome}</h3>`;
+      if (prod.imei) {
+        conteudo += `<p><strong>Modelo:</strong> ${prod.modelo}</p>
+                     <p><strong>IMEI:</strong> ${prod.imei}</p>`;
+      } else if (prod.franquia) {
+        conteudo += `<p><strong>Velocidade:</strong> ${prod.modelo}</p>
+                     <p><strong>Franquia restante:</strong> ${prod.franquia}</p>`;
+      } else {
+        conteudo += `<p><strong>Serviço:</strong> ${prod.modelo}</p>
+                     <p><strong>Validade:</strong> ${prod.validade}</p>`;
+      }
+      conteudo += `<button class="gerenciar">Gerenciar</button>`;
+      card.innerHTML = conteudo;
+      containerProdutos.appendChild(card);
+    });
+
+    const novidades = [
+      { nome: "Streaming Disney+", descricao: "Acesso ilimitado a filmes e séries da Disney", preco: "R$ 27,90/mês" },
+      { nome: "Link Dedicado 100Mbps", descricao: "Alta performance e estabilidade para sua empresa", preco: "R$ 1.299,90/mês" },
+      { nome: "Plano Móvel Corporativo 30GB", descricao: "WhatsApp ilimitado e apps de trabalho", preco: "R$ 149,90/mês" }
+    ];
+    const containerNovidades = document.getElementById('novidades');
+    novidades.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<h3>${item.nome}</h3>
+                        <p>${item.descricao}</p>
+                        <p class="preco">${item.preco}</p>
+                        <a href="pagamento.html" class="botao">Assinar / Comprar</a>`;
+      containerNovidades.appendChild(card);
+    });
+
+    const historico = [
+      { data: "01/09/2025", servico: "Plano Internet 300Mb", valor: "R$ 129,90", status: "Pago" },
+      { data: "20/08/2025", servico: "Celular iPhone 14", valor: "R$ 5.299,00", status: "Pendente" },
+      { data: "05/09/2025", servico: "Streaming Netflix", valor: "R$ 39,90", status: "Atrasado" }
+    ];
+    const containerHistorico = document.getElementById('historicoPagamentos');
+    historico.forEach(item => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${item.data}</td>
+                      <td>${item.servico}</td>
+                      <td>${item.valor}</td>
+                      <td class="${item.status.toLowerCase()}">${item.status}</td>`;
+      containerHistorico.appendChild(tr);
+    });
+
+  </script>
+
+
+
+</body>
+
+</html>

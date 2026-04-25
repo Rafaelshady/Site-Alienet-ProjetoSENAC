@@ -1,0 +1,431 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Corpo da página */
+html,
+body {
+    height: 100%;
+    position: relative;
+}
+
+body {
+    background: linear-gradient(135deg, #000010, #0a0f2d, #001f3f);
+    color: #fff;
+    background-blend-mode: overlay;
+    background-color: rgba(2, 44, 73, 0.8);
+    position: relative;
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Fundo com imagem e textura animada de estrelas */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    z-index: -1;
+    pointer-events: none;
+    animation: stars 100s linear infinite;
+}
+
+/* Animação de movimento das estrelas */
+@keyframes stars {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 10000px 5000px;
+    }
+}
+
+/* Cabeçalho */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+/* Navegação */
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Efeito neon na barra */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #7ec8ff;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #7ec8ff;
+    text-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+/* Logo */
+.voltar-home img {
+    width: 110px;
+    transition: transform 0.3s ease;
+}
+
+.voltar-home img:hover {
+    transform: scale(1.1);
+}
+
+
+
+/* Login / Cadastro */
+.login {
+    display: flex;
+    gap: 10px;
+}
+
+.login a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #5790c5;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login a:hover {
+    color: #7ec8ff;
+    text-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff, 0 0 30px #7ec8ff;
+    box-shadow: 0 0 10px #7ec8ff, 0 0 20px #7ec8ff;
+    transform: translateY(-6px);
+}
+
+.login a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #7ec8ff;
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+.login a:hover::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+/* ===== Dropdown de usuário ===== */
+.usuario-dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.icone-usuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    border: 2px solid #5790c5;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1b2735;
+    border: 1px solid #5790c5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    min-width: 140px;
+    text-align: center;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: #c3d9ff;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #5790c5;
+    color: #0a1e38;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Título */
+.titulo1 {
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 80px auto 100px auto;
+    width: 70%;
+    box-shadow: 0 4px 12px #7ec8ff;
+    border: 3px solid #5790c5;
+}
+
+
+/* Container dos planos */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 0 40px;
+}
+
+/* Card dos planos */
+.plano-wrapper {
+    width: 320px;
+    background: linear-gradient(145deg, #1a2a44, #1e395c);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.6),
+        0 0 10px rgba(87, 144, 197, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.plano-wrapper:hover {
+    transform: translateY(-10px);
+    box-shadow:
+        0 15px 25px rgba(0, 0, 0, 0.8),
+        0 0 25px rgba(126, 200, 255, 0.9);
+}
+
+/* Promoção */
+.promocao {
+    width: 100%;
+    background-color: #0a1e38;
+    color: #7ec8ff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 15px 0;
+    text-align: center;
+    text-shadow: 0 0 6px #5790c5;
+}
+
+/* Conteúdo do plano */
+.plano {
+    padding: 25px 20px;
+    text-align: center;
+    color: #cbd5e0;
+    flex-grow: 1;
+}
+
+.plano h2 {
+    font-weight: 900;
+    color: #a1cdf1;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 4px #142c54;
+}
+
+.plano p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #c3d9ffcc;
+}
+
+.preco {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #7ec8ff;
+    text-shadow: 0 0 8px #7ec8ffbb;
+    margin-bottom: 18px;
+}
+
+/* Imagens dos serviços incluídos nos planos */
+.servicos-inclusos {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    /* espaço entre os ícones */
+    margin-bottom: 15px;
+}
+
+.servicos-inclusos img {
+    width: 40px;
+    /* tamanho dos ícones */
+    height: 40px;
+    border-radius: 8px;
+    /* cantos arredondados */
+    box-shadow: 0 0 10px rgba(126, 200, 255, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicos-inclusos img:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(126, 200, 255, 0.9);
+}
+
+
+/* Botão Assinar */
+.botao {
+    background: linear-gradient(135deg, #5790c5, #7ec8ff);
+    padding: 12px 28px;
+    font-weight: 700;
+    border-radius: 30px;
+    box-shadow: 0 0 15px rgba(87, 144, 197, 0.8);
+    transition: all 0.3s ease;
+    color: white;
+    text-decoration: none;
+}
+
+.botao:hover {
+    background: linear-gradient(135deg, #7ec8ff, #b3e5ff);
+    color: #0a1e38;
+    box-shadow: 0 0 20px rgba(126, 200, 255, 1),
+        0 0 30px rgba(126, 200, 255, 0.9);
+}
+
+/* Botão Suporte com animação */
+.botao-suporte {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 1.5s infinite;
+    text-decoration: none;
+}
+
+.botao-suporte img {
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0px rgba(37, 211, 102, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(37, 211, 102, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 0px rgba(37, 211, 102, 0.6);
+    }
+}
+
+/* Rodapé */
+footer {
+    color: #cbd5e0;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.95rem;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: stars 100s linear infinite;
+}
+
+footer p {
+    margin-bottom: 20px;
+}
+
+footer .redes-sociais a {
+    margin: 0 10px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+footer .redes-sociais img {
+    width: 30px;
+    height: 30px;
+}
+
+footer .redes-sociais a:hover {
+    transform: scale(1.1);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .login {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .container {
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .plano-wrapper {
+        width: 100% !important;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}

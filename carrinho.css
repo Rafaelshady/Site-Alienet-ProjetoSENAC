@@ -1,0 +1,267 @@
+/* Reset e tipografia base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Corpo da página */
+body {
+    background: linear-gradient(135deg, #000010, #0a0f2d, #001f3f);
+    color: #fff;
+    min-height: 100vh;
+    background-blend-mode: overlay;
+    background-color: rgba(2, 44, 73, 0.8);
+    padding-top: 130px;
+    /* espaço para header */
+}
+
+/* Fundo animado de estrelas */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    z-index: -1;
+    animation: stars 100s linear infinite;
+}
+
+@keyframes stars {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 10000px 5000px;
+    }
+}
+
+/* Botão Voltar para a Home */
+.voltar-home {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: inline-block;
+}
+
+.voltar-home img {
+    width: 150px;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.voltar-home img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+/* Container do carrinho */
+.carrinho-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #1e2a38;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Título do carrinho */
+.carrinho-container h1 {
+    text-align: center;
+    color: #5790c5;
+    margin-bottom: 30px;
+}
+
+/* Lista de produtos */
+.carrinho-produtos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Item do carrinho */
+.carrinho-item {
+    background-color: #2a3a50;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Nome e descrição do produto */
+.carrinho-item h3 {
+    color: #79b0e0;
+    margin-bottom: 5px;
+}
+
+.carrinho-item p {
+    color: #cbd5e0;
+    margin-bottom: 5px;
+}
+
+/* Preço do produto */
+.carrinho-item .preco {
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Campo de quantidade */
+.carrinho-item label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #cbd5e0;
+    font-weight: 500;
+}
+
+.carrinho-item input.quantidade {
+    width: 60px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #1f2a3a;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    transition: outline 0.3s ease, transform 0.2s ease;
+}
+
+.carrinho-item input.quantidade:focus {
+    outline: 2px solid #5790c5;
+    transform: scale(1.05);
+}
+
+/* Botão remover */
+.carrinho-item button.remover {
+    align-self: flex-start;
+    background-color: #e53e3e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.carrinho-item button.remover:hover {
+    background-color: #c53030;
+    transform: scale(1.05);
+}
+
+/* Total do carrinho */
+.carrinho-total {
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.carrinho-total h2 {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.carrinho-total .botao {
+    background-color: #5790c5;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.carrinho-total .botao:hover {
+    background-color: #477bac;
+    transform: scale(1.03);
+}
+
+.carrinho-total .botao.limpar {
+    background-color: #e53e3e;
+}
+
+.carrinho-total .botao.limpar:hover {
+    background-color: #c53030;
+    transform: scale(1.03);
+}
+
+/* ================================
+   Mensagem para usuário não logado no carrinho
+   ================================ */
+#carrinhoNaoLogado {
+    display: none; /* só aparece se não estiver logado */
+    position: relative;
+    text-align: center;
+    margin: 50px auto;
+    max-width: 600px;
+    padding: 25px 40px 25px 60px; /* espaço para ícone */
+    background: linear-gradient(135deg, #1f2937, #2a3a50);
+    border-left: 6px solid #facc15;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    color: #facc15;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Ícone de alerta à esquerda */
+#carrinhoNaoLogado::before {
+    content: "⚠️";
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+}
+
+/* Hover suave */
+#carrinhoNaoLogado:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Links dentro da mensagem */
+#carrinhoNaoLogado a {
+    color: #4ea1d3;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+#carrinhoNaoLogado a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .carrinho-item {
+        padding: 15px;
+    }
+
+    .carrinho-item input.quantidade {
+        width: 50px;
+    }
+
+    .carrinho-total h2 {
+        font-size: 1.2rem;
+    }
+
+    .carrinho-total .botao {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}
