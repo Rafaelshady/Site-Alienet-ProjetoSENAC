@@ -111,7 +111,7 @@
     let usuario = JSON.parse(localStorage.getItem('usuarioAtual'));
 
     if (!usuarioLogado || !usuario) {
-      window.location.href = "Login.html";
+      window.location.href = "login.html";
     } else {
       // Boas-vindas e perfil
       document.getElementById('nomeUsuario').textContent = usuario.nome;
@@ -161,7 +161,7 @@
     });
 
     btnRemoverFoto.addEventListener('click', () => {
-      fotoUsuario.src = "imagens/perfil-padrao.png";
+      fotoUsuario.src = "imagens/perfil.png";
       usuario.foto = null;
       localStorage.setItem('usuarioAtual', JSON.stringify(usuario));
 

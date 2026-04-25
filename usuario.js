@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <img src="${fotoPerfil}" alt="Usuário logado" class="icone-usuario">
                 <span>${usuario.nome}</span>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="AreaRestrita.html">Dashboard</a>
+                    <a href="arearestrita.html">Dashboard</a>
                     <a href="#" id="logout">Sair</a>
                 </div>
             </div>
