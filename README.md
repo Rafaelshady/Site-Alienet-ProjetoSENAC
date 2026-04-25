@@ -27,6 +27,11 @@ Este projeto consiste em um site desenvolvido com HTML, CSS e JavaScript, com fo
 
 (Em breve)
 
+## 🌐 Acesse o projeto
+
+https://rafaelshady.github.io/Site-Alienet-ProjetoSENAC/
+
 ## 👨‍💻 Autor
 
 Desenvolvido por Rafael Mariano
+
